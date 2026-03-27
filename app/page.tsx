@@ -1,6 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { useLocale } from "@/contexts/LocaleContext";
 
 export default function Home() {
+  const { t } = useLocale();
+
+  const titleLines = t("home_title").split("\n");
+
   return (
     <div className="max-w-3xl mx-auto px-6 py-20">
       {/* Hero */}
@@ -9,7 +16,7 @@ export default function Home() {
           className="font-black uppercase tracking-widest text-[var(--accent)] mb-4"
           style={{ fontSize: "0.75rem", letterSpacing: "0.18em" }}
         >
-          Step Further
+          {t("home_hero_badge")}
         </p>
         <h1
           className="font-black leading-none mb-6"
@@ -23,13 +30,11 @@ export default function Home() {
             hyphens: "auto",
           }}
         >
-          PDF zusammenführen
-          <br />
-          &amp; aufteilen
+          {titleLines[0]}
+          {titleLines[1] && <><br />{titleLines[1]}</>}
         </h1>
         <p className="text-[var(--muted)] text-lg max-w-md leading-relaxed">
-          Mehrere PDF-Dateien zusammenführen oder einzelne Seiten extrahieren — vollständig im
-          Browser. Keine Uploads, keine Server, Ihre Daten verlassen Ihr Gerät nicht.
+          {t("home_subtitle")}
         </p>
       </div>
 
@@ -44,30 +49,26 @@ export default function Home() {
                 className="font-black uppercase tracking-wide"
                 style={{ fontSize: "1rem", letterSpacing: "0.06em" }}
               >
-                PDFs zusammenführen
+                {t("home_merge_title")}
               </h2>
               <p className="text-[var(--muted)] text-sm mt-1">
-                Mehrere PDF-Dateien zu einem Dokument zusammenführen
+                {t("home_merge_desc")}
               </p>
             </div>
           </div>
 
           <ol className="space-y-2 text-sm text-[var(--muted)] mb-6 pl-1">
-            <li className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[var(--step-bg)] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0">1</span>
-              PDF-Dateien auswählen
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[var(--step-bg)] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0">2</span>
-              Reihenfolge festlegen
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[var(--step-bg)] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0">3</span>
-              Zusammengeführtes PDF herunterladen
-            </li>
+            {[t("home_merge_step1"), t("home_merge_step2"), t("home_merge_step3")].map((step, i) => (
+              <li key={i} className="flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-[var(--step-bg)] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0">
+                  {i + 1}
+                </span>
+                {step}
+              </li>
+            ))}
           </ol>
 
-          <span className="btn-accent text-xs">Jetzt zusammenführen →</span>
+          <span className="btn-accent text-xs">{t("home_merge_cta")}</span>
         </Link>
 
         {/* Split card */}
@@ -79,30 +80,26 @@ export default function Home() {
                 className="font-black uppercase tracking-wide"
                 style={{ fontSize: "1rem", letterSpacing: "0.06em" }}
               >
-                PDF aufteilen
+                {t("home_split_title")}
               </h2>
               <p className="text-[var(--muted)] text-sm mt-1">
-                Seiten oder Seitenbereiche aus einer PDF-Datei extrahieren
+                {t("home_split_desc")}
               </p>
             </div>
           </div>
 
           <ol className="space-y-2 text-sm text-[var(--muted)] mb-6 pl-1">
-            <li className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[var(--step-bg)] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0">1</span>
-              PDF-Datei auswählen
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[var(--step-bg)] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0">2</span>
-              Seiten oder Bereich wählen
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[var(--step-bg)] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0">3</span>
-              Aufgeteilte PDFs herunterladen
-            </li>
+            {[t("home_split_step1"), t("home_split_step2"), t("home_split_step3")].map((step, i) => (
+              <li key={i} className="flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-[var(--step-bg)] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0">
+                  {i + 1}
+                </span>
+                {step}
+              </li>
+            ))}
           </ol>
 
-          <span className="btn-accent text-xs">Jetzt aufteilen →</span>
+          <span className="btn-accent text-xs">{t("home_split_cta")}</span>
         </Link>
       </div>
 
@@ -112,14 +109,14 @@ export default function Home() {
           className="font-black uppercase tracking-widest text-[var(--muted)] mb-8 text-xs"
           style={{ letterSpacing: "0.18em" }}
         >
-          So funktioniert es
+          {t("home_how_title")}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {[
-            { n: "01", title: "Dateien wählen", desc: "Per Drag & Drop oder Klick PDF-Dateien von Ihrem Gerät auswählen." },
-            { n: "02", title: "Konfigurieren", desc: "Dateien für die Zusammenführung sortieren oder Seitenbereiche für die Aufteilung angeben." },
-            { n: "03", title: "Herunterladen", desc: "Das Ergebnis wird direkt im Browser erzeugt und sofort heruntergeladen." },
-          ].map(({ n, title, desc }) => (
+          {([
+            { n: "01", titleKey: "home_step01_title", descKey: "home_step01_desc" },
+            { n: "02", titleKey: "home_step02_title", descKey: "home_step02_desc" },
+            { n: "03", titleKey: "home_step03_title", descKey: "home_step03_desc" },
+          ] as const).map(({ n, titleKey, descKey }) => (
             <div key={n}>
               <span
                 className="block font-black mb-2"
@@ -135,8 +132,8 @@ export default function Home() {
               >
                 {n}
               </span>
-              <h3 className="font-bold text-sm uppercase tracking-wide mb-1">{title}</h3>
-              <p className="text-[var(--muted)] text-sm leading-relaxed">{desc}</p>
+              <h3 className="font-bold text-sm uppercase tracking-wide mb-1">{t(titleKey)}</h3>
+              <p className="text-[var(--muted)] text-sm leading-relaxed">{t(descKey)}</p>
             </div>
           ))}
         </div>
@@ -144,3 +141,4 @@ export default function Home() {
     </div>
   );
 }
+

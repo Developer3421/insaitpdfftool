@@ -6,6 +6,13 @@ import AppShell from "@/components/AppShell";
 export const metadata: Metadata = {
   title: "PDF Tool — Merge & Split",
   description: "Client-side PDF merging and splitting powered by pdf-lib",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "256x256" },
+    ],
+    apple: { url: "/icon.png", type: "image/png", sizes: "256x256" },
+  },
 };
 
 export default function RootLayout({

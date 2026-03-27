@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8f8f6;
+  --foreground: #1a1a1a;
+  --accent: #e85d26;
+  --accent-dark: #c44a18;
+  --step-bg: #1a1a1a;
+  --step-text: #ffffff;
+  --card-bg: #ffffff;
+  --border: #e2e2dc;
+  --muted: #6b6b6b;
+  --success: #2d7a47;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* B2 Step Further – step number badge */
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--step-bg);
+  color: var(--step-text);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.step-badge.active {
+  background: var(--accent);
+}
+
+.step-badge.done {
+  background: var(--success);
+}
+
+/* Accent button */
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 2px;
+  transition: background 0.15s;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-accent:hover {
+  background: var(--accent-dark);
+}
+
+.btn-accent:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Outline button */
+.btn-outline {
+  background: transparent;
+  color: var(--foreground);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 2px;
+  border: 2px solid var(--foreground);
+  transition: all 0.15s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-outline:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* Drop zone */
+.drop-zone {
+  border: 2px dashed var(--border);
+  border-radius: 4px;
+  background: var(--card-bg);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.drop-zone:hover,
+.drop-zone.over {
+  border-color: var(--accent);
+  background: #fff6f2;
+}
+
+/* Step card */
+.step-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.5rem;
+}
+
+/* File item */
+.file-item {
+  background: #f8f8f6;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.625rem 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.875rem;
+}
+
+/* Progress bar */
+.progress-bar {
+  height: 4px;
+  background: #e2e2dc;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+/* Top nav */
+.top-nav {
+  background: var(--step-bg);
+  color: var(--step-text);
+  padding: 0 2rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-link {
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  transition: color 0.15s;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #fff;
+  border-bottom-color: var(--accent);
+}

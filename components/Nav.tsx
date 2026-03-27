@@ -11,19 +11,20 @@ export default function Nav() {
       {/* Logo / brand */}
       <Link
         href="/"
-        className="flex items-center gap-2 mr-4 text-white no-underline"
+        aria-label="PDF-Werkzeug – Startseite"
+        className="flex items-center gap-2 mr-4 no-underline"
+        style={{
+          background: "linear-gradient(90deg, var(--orange), var(--purple-light))",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+          fontWeight: 900,
+          fontSize: "0.9375rem",
+          letterSpacing: "0.06em",
+          textTransform: "uppercase" as const,
+        }}
       >
-        <span className="step-badge active text-sm">P</span>
-        <span
-          style={{
-            fontWeight: 900,
-            fontSize: "0.9375rem",
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
-          }}
-        >
-          PDF Tool
-        </span>
+        PDF-Werkzeug
       </Link>
 
       <div className="flex items-center gap-1 ml-auto">
@@ -31,13 +32,13 @@ export default function Nav() {
           href="/merge"
           className={`nav-link px-3${pathname === "/merge" ? " active" : ""}`}
         >
-          Merge
+          Zusammenführen
         </Link>
         <Link
           href="/split"
           className={`nav-link px-3${pathname === "/split" ? " active" : ""}`}
         >
-          Split
+          Aufteilen
         </Link>
       </div>
     </nav>

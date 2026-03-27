@@ -1,16 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f8f6;
-  --foreground: #1a1a1a;
-  --accent: #e85d26;
-  --accent-dark: #c44a18;
-  --step-bg: #1a1a1a;
-  --step-text: #ffffff;
-  --card-bg: #ffffff;
-  --border: #e2e2dc;
-  --muted: #6b6b6b;
-  --success: #2d7a47;
+  --orange:        #f97316;
+  --orange-light:  #fb923c;
+  --purple:        #7c3aed;
+  --purple-light:  #a78bfa;
+  --background:    #0d0014;
+  --foreground:    #f1f5f9;
+  --accent:        #f97316;
+  --accent-dark:   #ea6a00;
+  --step-bg:       #7c3aed;
+  --step-text:     #ffffff;
+  --card-bg:       rgba(30, 10, 50, 0.75);
+  --border:        rgba(124, 58, 237, 0.35);
+  --muted:         #c4b5d4;
+  --success:       #22c55e;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -25,9 +29,31 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
 }
+
+/* Animated gradient background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(124,58,237,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(249,115,22,0.12) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+  animation: bgPulse 10s ease-in-out infinite alternate;
+}
+
+@keyframes bgPulse {
+  0%   { opacity: 0.7; }
+  100% { opacity: 1;   }
+}
+
+body > * { position: relative; z-index: 1; }
 
 /* B2 Step Further – step number badge */
 .step-badge {
@@ -37,8 +63,9 @@ body {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: var(--step-bg);
-  color: var(--step-text);
+  background: rgba(30, 10, 50, 0.8);
+  border: 1px solid rgba(124,58,237,0.5);
+  color: var(--purple-light);
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -46,24 +73,27 @@ body {
 }
 
 .step-badge.active {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--orange), var(--purple));
+  border-color: transparent;
+  color: #fff;
 }
 
 .step-badge.done {
   background: var(--success);
+  border-color: transparent;
+  color: #fff;
 }
 
 /* Accent button */
 .btn-accent {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--orange), var(--accent-dark));
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.02em;
-  text-transform: uppercase;
   font-size: 0.875rem;
   padding: 0.75rem 1.75rem;
-  border-radius: 2px;
-  transition: background 0.15s;
+  border-radius: 8px;
+  transition: opacity 0.15s, transform 0.15s;
   cursor: pointer;
   border: none;
   display: inline-flex;
@@ -72,25 +102,26 @@ body {
 }
 
 .btn-accent:hover {
-  background: var(--accent-dark);
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 .btn-accent:disabled {
-  background: #ccc;
+  opacity: 0.4;
   cursor: not-allowed;
+  transform: none;
 }
 
 /* Outline button */
 .btn-outline {
   background: transparent;
-  color: var(--foreground);
-  font-weight: 700;
+  color: var(--purple-light);
+  font-weight: 600;
   letter-spacing: 0.02em;
-  text-transform: uppercase;
   font-size: 0.875rem;
   padding: 0.75rem 1.75rem;
-  border-radius: 2px;
-  border: 2px solid var(--foreground);
+  border-radius: 8px;
+  border: 1px solid rgba(124,58,237,0.45);
   transition: all 0.15s;
   cursor: pointer;
   display: inline-flex;
@@ -99,38 +130,40 @@ body {
 }
 
 .btn-outline:hover {
-  background: var(--foreground);
-  color: var(--background);
+  background: rgba(124,58,237,0.2);
+  color: #fff;
+  border-color: var(--purple-light);
 }
 
 /* Drop zone */
 .drop-zone {
-  border: 2px dashed var(--border);
-  border-radius: 4px;
-  background: var(--card-bg);
+  border: 2px dashed rgba(124,58,237,0.4);
+  border-radius: 12px;
+  background: rgba(30, 10, 50, 0.5);
   transition: all 0.2s;
   cursor: pointer;
 }
 
 .drop-zone:hover,
 .drop-zone.over {
-  border-color: var(--accent);
-  background: #fff6f2;
+  border-color: var(--orange);
+  background: rgba(249,115,22,0.05);
 }
 
 /* Step card */
 .step-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 12px;
   padding: 1.5rem;
+  backdrop-filter: blur(8px);
 }
 
 /* File item */
 .file-item {
-  background: #f8f8f6;
+  background: rgba(13,0,20,0.5);
   border: 1px solid var(--border);
-  border-radius: 2px;
+  border-radius: 8px;
   padding: 0.625rem 0.875rem;
   display: flex;
   align-items: center;
@@ -154,8 +187,11 @@ body {
 
 /* Top nav */
 .top-nav {
-  background: var(--step-bg);
-  color: var(--step-text);
+  background: rgba(13, 0, 20, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.4);
+  color: var(--foreground);
   padding: 0 2rem;
   height: 56px;
   display: flex;
@@ -167,19 +203,18 @@ body {
 }
 
 .nav-link {
-  font-weight: 700;
-  font-size: 0.8125rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
   text-decoration: none;
-  transition: color 0.15s;
-  padding: 0.25rem 0;
-  border-bottom: 2px solid transparent;
+  transition: color 0.2s, background 0.2s;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
 }
 
 .nav-link:hover,
 .nav-link.active {
-  color: #fff;
-  border-bottom-color: var(--accent);
+  color: var(--orange);
+  background: rgba(249,115,22,0.1);
 }

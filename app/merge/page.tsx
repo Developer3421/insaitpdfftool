@@ -33,7 +33,7 @@ export default function MergePage() {
     const pdfs: PdfFile[] = [];
     for (const f of rawFiles) {
       if (f.type !== "application/pdf" && !f.name.toLowerCase().endsWith(".pdf")) {
-        setError(`"${f.name}" is not a PDF file.`);
+        setError(`"${f.name}" ist keine PDF-Datei.`);
         return;
       }
       const data = await f.arrayBuffer();
@@ -82,7 +82,7 @@ export default function MergePage() {
 
   const merge = async () => {
     if (files.length < 2) {
-      setError("Please add at least 2 PDF files.");
+      setError("Bitte mindestens 2 PDF-Dateien hinzufügen.");
       return;
     }
     setIsProcessing(true);
@@ -105,7 +105,7 @@ export default function MergePage() {
       setDownloadUrl(url);
       setStep(3);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to merge PDFs.");
+      setError(err instanceof Error ? err.message : "PDFs konnten nicht zusammengeführt werden.");
     } finally {
       setIsProcessing(false);
     }
@@ -137,19 +137,19 @@ export default function MergePage() {
           PDF Tool
         </p>
         <h1 className="font-black leading-none mb-3" style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)", letterSpacing: "-0.03em" }}>
-          Merge PDFs
+          PDFs zusammenführen
         </h1>
         <p className="text-[var(--muted)] text-sm">
-          Combine multiple PDF files into a single document — processed entirely in your browser.
+          Mehrere PDF-Dateien zu einem Dokument zusammenführen — vollständig im Browser verarbeitet.
         </p>
       </div>
 
       {/* Step indicators */}
       <div className="flex items-center gap-0 mb-10 select-none">
         {[
-          { n: 1, label: "Add Files" },
-          { n: 2, label: "Arrange" },
-          { n: 3, label: "Download" },
+          { n: 1, label: "Dateien hinzufügen" },
+          { n: 2, label: "Sortieren" },
+          { n: 3, label: "Herunterladen" },
         ].map(({ n, label }, i) => (
           <div key={n} className="flex items-center">
             {i > 0 && (
@@ -192,8 +192,8 @@ export default function MergePage() {
               <path d="M12 16V8m0 0-3 3m3-3 3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2" />
             </svg>
-            <p className="font-bold text-sm mb-1">Drop PDF files here</p>
-            <p className="text-[var(--muted)] text-xs">or click to browse</p>
+            <p className="font-bold text-sm mb-1">PDF-Dateien hier ablegen</p>
+            <p className="text-[var(--muted)] text-xs">oder klicken zum Durchsuchen</p>
             <input
               ref={inputRef}
               type="file"
@@ -213,13 +213,13 @@ export default function MergePage() {
           <div className="step-card mb-4">
             <div className="flex items-center justify-between mb-4">
               <span className="text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
-                {files.length} file{files.length !== 1 ? "s" : ""} selected
+                {files.length} Datei{files.length !== 1 ? "en" : ""} ausgewählt
               </span>
               <button
                 className="text-xs font-bold uppercase tracking-wide text-[var(--accent)] hover:underline"
                 onClick={() => inputRef.current?.click()}
               >
-                + Add more
+                + Weitere hinzufügen
               </button>
               <input
                 ref={inputRef}
@@ -274,7 +274,7 @@ export default function MergePage() {
           {/* Output filename */}
           <div className="step-card mb-4">
             <label className="block text-xs font-bold uppercase tracking-widest text-[var(--muted)] mb-2">
-              Output filename
+              Ausgabedateiname
             </label>
             <input
               type="text"
@@ -292,20 +292,20 @@ export default function MergePage() {
               <div className="progress-bar">
                 <div className="progress-bar-fill" style={{ width: `${progress}%` }} />
               </div>
-              <p className="text-xs text-[var(--muted)] mt-1">Processing… {progress}%</p>
+              <p className="text-xs text-[var(--muted)] mt-1">Verarbeitung… {progress}%</p>
             </div>
           )}
 
           <div className="flex gap-3">
             <button className="btn-outline" onClick={reset}>
-              ← Reset
+              ← Zurücksetzen
             </button>
             <button
               className="btn-accent"
               onClick={merge}
               disabled={isProcessing || files.length < 2}
             >
-              {isProcessing ? "Merging…" : `Merge ${files.length} PDFs →`}
+              {isProcessing ? "Zusammenführen…" : `${files.length} PDFs zusammenführen →`}
             </button>
           </div>
         </div>
@@ -321,17 +321,17 @@ export default function MergePage() {
             <span className="text-white text-2xl font-black">✓</span>
           </div>
           <h2 className="font-black text-xl mb-2" style={{ letterSpacing: "-0.02em" }}>
-            Merge complete!
+            Zusammenführen abgeschlossen!
           </h2>
           <p className="text-[var(--muted)] text-sm mb-8">
-            Your PDF has been merged successfully.
+            Ihre PDF wurde erfolgreich zusammengeführt.
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <button className="btn-accent" onClick={download}>
               ↓ Download {outputName}
             </button>
             <button className="btn-outline" onClick={reset}>
-              Start over
+              Von vorne beginnen
             </button>
           </div>
         </div>

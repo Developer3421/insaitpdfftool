@@ -28,7 +28,7 @@ export default function SplitPage() {
 
   const loadPdf = useCallback(async (file: File) => {
     if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
-      setError(`"${file.name}" is not a PDF file.`);
+      setError(`"${file.name}" ist keine PDF-Datei.`);
       return;
     }
     setError(null);
@@ -41,7 +41,7 @@ export default function SplitPage() {
       setRangeTo(String(count));
       setStep(2);
     } catch {
-      setError("Failed to read the PDF. Make sure it is a valid PDF file.");
+      setError("Die PDF konnte nicht gelesen werden. Bitte stellen Sie sicher, dass es sich um eine gültige PDF-Datei handelt.");
     }
   }, []);
 
@@ -106,7 +106,7 @@ export default function SplitPage() {
         const from = Math.max(1, Number(rangeFrom));
         const to = Math.min(pageCount, Number(rangeTo));
         if (from > to) {
-          setError("From page must be ≤ To page.");
+          setError("Die Startseite muss ≤ der Endseite sein.");
           setIsProcessing(false);
           return;
         }
@@ -120,7 +120,7 @@ export default function SplitPage() {
         // custom
         const indices = parsePageSpec(customPages, pageCount);
         if (indices.length === 0) {
-          setError("No valid pages specified. Use format: 1,3,5-7");
+          setError("Keine gültigen Seiten angegeben. Format: 1,3,5-7");
           setIsProcessing(false);
           return;
         }
@@ -147,7 +147,7 @@ export default function SplitPage() {
       setOutputs(result);
       setStep(3);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to split PDF.");
+      setError(err instanceof Error ? err.message : "Die PDF konnte nicht aufgeteilt werden.");
     } finally {
       setIsProcessing(false);
     }
@@ -184,19 +184,19 @@ export default function SplitPage() {
           PDF Tool
         </p>
         <h1 className="font-black leading-none mb-3" style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)", letterSpacing: "-0.03em" }}>
-          Split PDF
+          PDF aufteilen
         </h1>
         <p className="text-[var(--muted)] text-sm">
-          Extract individual pages or custom ranges — processed entirely in your browser.
+          Einzelne Seiten oder Seitenbereiche extrahieren — vollständig im Browser verarbeitet.
         </p>
       </div>
 
       {/* Step indicators */}
       <div className="flex items-center gap-0 mb-10 select-none">
         {[
-          { n: 1, label: "Select File" },
-          { n: 2, label: "Configure" },
-          { n: 3, label: "Download" },
+          { n: 1, label: "Datei auswählen" },
+          { n: 2, label: "Konfigurieren" },
+          { n: 3, label: "Herunterladen" },
         ].map(({ n, label }, i) => (
           <div key={n} className="flex items-center">
             {i > 0 && (
@@ -239,8 +239,8 @@ export default function SplitPage() {
               <path d="M12 16V8m0 0-3 3m3-3 3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2" />
             </svg>
-            <p className="font-bold text-sm mb-1">Drop a PDF file here</p>
-            <p className="text-[var(--muted)] text-xs">or click to browse</p>
+            <p className="font-bold text-sm mb-1">PDF-Datei hier ablegen</p>
+            <p className="text-[var(--muted)] text-xs">oder klicken zum Durchsuchen</p>
             <input
               ref={inputRef}
               type="file"
@@ -264,14 +264,14 @@ export default function SplitPage() {
             </svg>
             <span className="font-medium truncate">{pdfFile.name}</span>
             <span className="text-[var(--muted)] text-xs ml-auto flex-shrink-0">
-              {pageCount} page{pageCount !== 1 ? "s" : ""}
+              {pageCount} Seite{pageCount !== 1 ? "n" : ""}
             </span>
           </div>
 
           {/* Split mode */}
           <div className="step-card mb-4">
             <p className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-4">
-              Split mode
+              Aufteilungsmodus
             </p>
             <div className="space-y-3">
               {/* All pages */}
@@ -285,9 +285,9 @@ export default function SplitPage() {
                   className="mt-0.5 accent-[var(--accent)]"
                 />
                 <div>
-                  <span className="font-bold text-sm">Split every page</span>
+                  <span className="font-bold text-sm">Jede Seite aufteilen</span>
                   <p className="text-[var(--muted)] text-xs">
-                    Each page becomes a separate PDF file ({pageCount} files)
+                    Jede Seite wird eine eigene PDF-Datei ({pageCount} Dateien)
                   </p>
                 </div>
               </label>
@@ -303,13 +303,13 @@ export default function SplitPage() {
                   className="mt-0.5 accent-[var(--accent)]"
                 />
                 <div className="flex-1">
-                  <span className="font-bold text-sm">Extract page range</span>
+                  <span className="font-bold text-sm">Seitenbereich extrahieren</span>
                   <p className="text-[var(--muted)] text-xs mb-2">
-                    Extract a consecutive range of pages
+                    Einen zusammenhängenden Seitenbereich extrahieren
                   </p>
                   {mode === "range" && (
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-[var(--muted)]">From</span>
+                      <span className="text-xs text-[var(--muted)]">Von</span>
                       <input
                         type="number"
                         min={1}
@@ -318,7 +318,7 @@ export default function SplitPage() {
                         onChange={(e) => setRangeFrom(e.target.value)}
                         className="w-16 border border-[var(--border)] rounded px-2 py-1 text-sm font-mono focus:outline-none focus:border-[var(--accent)]"
                       />
-                      <span className="text-xs text-[var(--muted)]">to</span>
+                      <span className="text-xs text-[var(--muted)]">bis</span>
                       <input
                         type="number"
                         min={1}
@@ -327,7 +327,7 @@ export default function SplitPage() {
                         onChange={(e) => setRangeTo(e.target.value)}
                         className="w-16 border border-[var(--border)] rounded px-2 py-1 text-sm font-mono focus:outline-none focus:border-[var(--accent)]"
                       />
-                      <span className="text-xs text-[var(--muted)]">of {pageCount}</span>
+                      <span className="text-xs text-[var(--muted)]">von {pageCount}</span>
                     </div>
                   )}
                 </div>
@@ -344,15 +344,15 @@ export default function SplitPage() {
                   className="mt-0.5 accent-[var(--accent)]"
                 />
                 <div className="flex-1">
-                  <span className="font-bold text-sm">Custom page selection</span>
+                  <span className="font-bold text-sm">Benutzerdefinierte Seitenauswahl</span>
                   <p className="text-[var(--muted)] text-xs mb-2">
-                    Specify individual pages and ranges (e.g.{" "}
+                    Einzelne Seiten und Bereiche angeben (z. B.{" "}
                     <code className="font-mono bg-[var(--border)] px-1 rounded text-xs">1,3,5-7,9</code>)
                   </p>
                   {mode === "custom" && (
                     <input
                       type="text"
-                      placeholder="e.g. 1,3,5-7"
+                      placeholder="z.B. 1,3,5-7"
                       value={customPages}
                       onChange={(e) => setCustomPages(e.target.value)}
                       className="w-full border border-[var(--border)] rounded px-3 py-1.5 text-sm font-mono focus:outline-none focus:border-[var(--accent)]"
@@ -370,16 +370,16 @@ export default function SplitPage() {
               <div className="progress-bar">
                 <div className="progress-bar-fill" style={{ width: `${progress}%` }} />
               </div>
-              <p className="text-xs text-[var(--muted)] mt-1">Processing… {progress}%</p>
+              <p className="text-xs text-[var(--muted)] mt-1">Verarbeitung… {progress}%</p>
             </div>
           )}
 
           <div className="flex gap-3">
             <button className="btn-outline" onClick={reset}>
-              ← Reset
+              ← Zurücksetzen
             </button>
             <button className="btn-accent" onClick={split} disabled={isProcessing}>
-              {isProcessing ? "Splitting…" : "Split PDF →"}
+              {isProcessing ? "Aufteilen…" : "PDF aufteilen →"}
             </button>
           </div>
         </div>
@@ -396,10 +396,10 @@ export default function SplitPage() {
               <span className="text-white text-2xl font-black">✓</span>
             </div>
             <h2 className="font-black text-xl mb-1" style={{ letterSpacing: "-0.02em" }}>
-              Split complete!
+              Aufteilen abgeschlossen!
             </h2>
             <p className="text-[var(--muted)] text-sm">
-              {outputs.length} file{outputs.length !== 1 ? "s" : ""} ready to download.
+              {outputs.length} Datei{outputs.length !== 1 ? "en" : ""} zum Herunterladen bereit.
             </p>
           </div>
 
@@ -412,7 +412,7 @@ export default function SplitPage() {
                   style={{ padding: "0.375rem 0.875rem" }}
                   onClick={() => download(f)}
                 >
-                  ↓ Download
+                  ↓ Herunterladen
                 </button>
               </div>
             ))}
@@ -421,11 +421,11 @@ export default function SplitPage() {
           <div className="flex gap-3 flex-wrap">
             {outputs.length > 1 && (
               <button className="btn-accent" onClick={downloadAll}>
-                ↓ Download All ({outputs.length})
+                ↓ Alle herunterladen ({outputs.length})
               </button>
             )}
             <button className="btn-outline" onClick={reset}>
-              Start over
+              Von vorne beginnen
             </button>
           </div>
         </div>
